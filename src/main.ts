@@ -1,3 +1,4 @@
+//顺序：mian-module-controller-service
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
