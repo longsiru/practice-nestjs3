@@ -12,6 +12,7 @@ import {
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/creacte-board.dto';
 import { Board, BoardStatus } from './board.model';
+import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
 @Controller('boards')
 export class BoardController {
@@ -57,10 +58,17 @@ export class BoardController {
   @Patch('/:id/status')
   updateBoardStatus(
     @Param('id') id: string,
-    @Body('status') staus: BoardStatus,
+    @Body('status', BoardStatusValidationPipe) staus: BoardStatus, //在这里我们会改变状态，也要检查我们换的状态是否存在，是否是有效值。。
   ) {
     return this.boardService.updateBoardStatus(id, staus);
   }
 
   //6.pipe를 이용해서 유효성 체크-> npm install class-validator class-transformer --save
+  //7.특정한 게시물을 찾을 때 없는 경우 결과 값 처리
+  //8.없는 게시물을 지우려 할 때 결과 값 처리
+  //9.커스텀 파이프를(custom pipe) 이용한 유휴성 체크
+  //10.postgresSQL 설치하기
+  //11.typeorm application에서 이ㅇㅛㅇ하기 -> npm install pg typeorm @nestjs/typeorm --save
+  //12.configs--》 tyoeorm config
+  //13.entity
 }
