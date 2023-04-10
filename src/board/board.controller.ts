@@ -1,5 +1,5 @@
 import { Board } from './../../dist/board/board.model.d';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { title } from 'process';
 import { CreateBoardDto } from './dto/creacte-board.dto';
@@ -26,5 +26,20 @@ export class BoardController {
   @Post()
   createBoard(@Body() createBoardDto: CreateBoardDto): Board {
     return this.boardService.createBoard(createBoardDto);
+  }
+
+  //id로 게시물을 가져오기
+  //localhost:5000?id=osidos&title=ewewe,这时有两个param，想把这两个一次性拿到的时候，
+  //@Param() param:string
+  //特定的话：@Param('id') id: string
+  @Get('/:id')
+  getBoardById(@Param('id') id: string): Board {
+    return this.boardService.getBoardById(id);
+  }
+
+  //id로 해당 게시물을 지우기.
+  @Delete('/:id')
+  deleteBoardById(@Param('id') id: string): void {
+    this.boardService.deleteBoardById(id);
   }
 }
